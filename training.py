@@ -4,6 +4,12 @@ import sys, os
 from random import shuffle
 import torch
 import torch.nn as nn
+
+from models.mcnn_fifthgat_gcn import MCNN_FIFTHGAT_GCN
+from models.mcnn_fourgat_gcn import MCNN_FOURGAT_GCN
+from models.mcnn_doublegat_gcn import MCNN_DOUBLEGAT_GCN
+from models.mcnn_triblegat_gcn import MCNN_TRIBLEGAT_GCN
+from models.mcnn_gatgcn import MCNN_GATGCN
 from models.gat import GATNet
 from models.gat_gcn import GAT_GCN
 from models.gcn import GCNNet
@@ -42,13 +48,17 @@ def predicting(model, device, loader):
     return total_labels.numpy().flatten(),total_preds.numpy().flatten()
 
 
-datasets = [['davis','kiba'][int(sys.argv[1])]] 
-modeling = [GINConvNet, GATNet, GAT_GCN, GCNNet][int(sys.argv[2])]
+# datasets = [['davis','kiba'][int(sys.argv[1])]]
+datasets = [['davis','kiba'][0]]
+# modeling = [GINConvNet, GATNet, GAT_GCN, GCNNet][int(sys.argv[2])]
+# modeling = [GINConvNet, GATNet, GAT_GCN, GCNNet][3]
+modeling = [GINConvNet, GATNet, GAT_GCN, GCNNet,MCNN_GATGCN,MCNN_DOUBLEGAT_GCN,MCNN_TRIBLEGAT_GCN,MCNN_FOURGAT_GCN,MCNN_FIFTHGAT_GCN][6]
 model_st = modeling.__name__
 
 cuda_name = "cuda:0"
 if len(sys.argv)>3:
-    cuda_name = "cuda:" + str(int(sys.argv[3])) 
+    # cuda_name = "cuda:" + str(int(sys.argv[3]))
+    cuda_name = "cuda:" + str(0)
 print('cuda_name:', cuda_name)
 
 TRAIN_BATCH_SIZE = 512

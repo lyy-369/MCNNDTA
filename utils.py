@@ -6,6 +6,7 @@ from torch_geometric.data import InMemoryDataset, DataLoader
 from torch_geometric import data as DATA
 import torch
 
+#定义一个数据可全部存储到内存的数据集类
 class TestbedDataset(InMemoryDataset):
     def __init__(self, root='/tmp', dataset='davis', 
                  xd=None, xt=None, y=None, transform=None,
@@ -15,7 +16,7 @@ class TestbedDataset(InMemoryDataset):
         super(TestbedDataset, self).__init__(root, transform, pre_transform)
         # benchmark dataset, default = 'davis'
         self.dataset = dataset
-        if os.path.isfile(self.processed_paths[0]):
+        if os.path.isfile(self.processed_paths[0]):#processed_paths = ['data\\processed\\davis_train.pt']
             print('Pre-processed data found: {}, loading ...'.format(self.processed_paths[0]))
             self.data, self.slices = torch.load(self.processed_paths[0])
         else:

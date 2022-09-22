@@ -59,6 +59,7 @@ datasets = ['kiba','davis']
 for dataset in datasets:
     print('convert data from DeepDTA for ', dataset)
     fpath = 'data/' + dataset + '/'
+    print(fpath)
     train_fold = json.load(open(fpath + "folds/train_fold_setting1.txt"))
     train_fold = [ee for e in train_fold for ee in e ]
     valid_fold = json.load(open(fpath + "folds/test_fold_setting1.txt"))
